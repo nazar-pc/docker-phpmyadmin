@@ -5,11 +5,11 @@ WORKDIR /var/www/html
 
 # Set desired phpMyAdmin version
 
-RUN PHPMYADMIN_VERSION=4.4.9 && \
+ENV PHPMYADMIN_VERSION=4.4.9
 
 # Install PHP Extension
 
-	docker-php-ext-install mbstring && \
+RUN	docker-php-ext-install mbstring && \
 	docker-php-ext-install mysqli && \
 
 # We'll need wget
@@ -28,5 +28,4 @@ RUN PHPMYADMIN_VERSION=4.4.9 && \
 	rm -rf setup && \
 	rm -rf sql
 
-COPY .htaccess /var/www/html/.htaccess
-COPY config.inc.php /var/www/html/config.inc.php
+COPY .htaccess config.inc.php /var/www/html/
