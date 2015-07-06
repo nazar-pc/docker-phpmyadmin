@@ -22,7 +22,7 @@ RUN PHPMYADMIN_VERSION=4.4.11 && \
 
 # Download and extract phpMyAdmin
 
-  wget --no-verbose -O - http://sourceforge.net/projects/phpmyadmin/files/phpMyAdmin/${PHPMYADMIN_VERSION}/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages.tar.gz | tar --extract --gunzip --file - --strip-components 1 && \
+  wget --no-verbose -O - https://files.phpmyadmin.net/phpMyAdmin/${PHPMYADMIN_VERSION}/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages.tar.gz | tar --extract --gunzip --file - --strip-components 1 && \
 	rm -rf phpMyAdmin* && \
 	rm -rf examples && \
 	rm -rf setup && \
