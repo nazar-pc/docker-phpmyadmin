@@ -5,7 +5,7 @@ WORKDIR /var/www/html
 
 # Set desired phpMyAdmin version
 
-RUN PHPMYADMIN_VERSION=4.4.10 && \
+RUN PHPMYADMIN_VERSION=4.4.11 && \
 
 # Install PHP Extension
 
