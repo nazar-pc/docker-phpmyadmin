@@ -7,8 +7,7 @@ RUN PHPMYADMIN_VERSION=4.4.11 && \
 
 # Install PHP Extensions
 
-	docker-php-ext-install mbstring && \
-	docker-php-ext-install mysqli && \
+	docker-php-ext-install mbstring mysqli && \
 
 # Download and extract phpMyAdmin
 
