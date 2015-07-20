@@ -3,7 +3,7 @@ MAINTAINER Nazar Mokrynskyi <nazar@mokrynskyi.com>
 
 # Set desired phpMyAdmin version
 
-RUN PHPMYADMIN_VERSION=4.4.11 && \
+RUN PHPMYADMIN_VERSION=4.4.12 && \
 
 # Install PHP Extensions
 
