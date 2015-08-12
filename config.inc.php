@@ -2,6 +2,7 @@
 include 'config.sample.inc.php';
 
 $cfg['Servers'][1]['host'] = 'mysql';
+$cfg['Servers'][1]['AllowNoPassword'] = true;
 $file_with_secret          = 'config.inc.secret.php';
 
 if (!file_exists($file_with_secret)) {
