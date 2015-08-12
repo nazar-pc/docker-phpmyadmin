@@ -1,9 +1,9 @@
 <?php
 include 'config.sample.inc.php';
 
-$cfg['Servers'][1]['host'] = 'mysql';
+$cfg['Servers'][1]['host']            = 'mysql';
 $cfg['Servers'][1]['AllowNoPassword'] = true;
-$file_with_secret          = 'config.inc.secret.php';
+$file_with_secret                     = 'config.inc.secret.php';
 
 if (!file_exists($file_with_secret)) {
 	$secret = hash('sha512', openssl_random_pseudo_bytes(1000));
