@@ -14,7 +14,7 @@ docker run --rm --link mysql:mysql -p 1234:80 nazarpc/phpmyadmin
 With MariaDB:
 ```bash
 docker run --name mariadb -e MYSQL_ROOT_PASSWORD=my_password -d mariadb
-docker run --rm --link mariadb:mysql 1234:80 nazarpc/phpmyadmin
+docker run --rm --link mariadb:mysql -p 1234:80 nazarpc/phpmyadmin
 ```
 (internally it should be called `mysql` anyway)
 
