@@ -5,17 +5,31 @@ MAINTAINER Nazar Mokrynskyi <nazar@mokrynskyi.com>
 
 RUN PHPMYADMIN_VERSION=4.5.0.2 && \
 
+# Install libbz2-dev and zlib1g-dev packages to support *.sql.bz2 and *.sql.zip compressed files during imports
+
+	apt-get update && \
+	apt-get install -y --no-install-recommends libbz2-dev zlib1g-dev && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/* && \
+
 # Install PHP Extensions
 
-	docker-php-ext-install mbstring mysqli && \
+	docker-php-ext-install bz2 mbstring mysqli zip && \
 
 # Download and extract phpMyAdmin
 
 	curl https://files.phpmyadmin.net/phpMyAdmin/${PHPMYADMIN_VERSION}/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages.tar.gz | tar --extract --gunzip --file - --strip-components 1 && \
-	rm -rf phpMyAdmin* && \
 	rm -rf examples && \
 	rm -rf setup && \
 	rm -rf sql
 
 COPY .htaccess /var/www/html/.htaccess
 COPY config.inc.php /var/www/html/config.inc.php
+
+# Support for UPLOAD_SIZE env var, if specified - will be used instead of default value 128M
+
+CMD (test -z $UPLOAD_SIZE || sed -i "s/128M/$UPLOAD_SIZE/g" .htaccess) && \
+
+# Start Apache as usual
+
+	apache2-foreground

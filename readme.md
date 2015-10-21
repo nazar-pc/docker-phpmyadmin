@@ -20,6 +20,12 @@ docker run --rm --link mariadb:mysql -p 1234:80 nazarpc/phpmyadmin
 
 After these commands you'll be able to access phpMyAdmin via `http://localhost:1234`, press `Ctrl+C` to stop container, and it will be removed automatically (because of `--rm` option). Feel free to change `1234` to any port you like.
 
+# Specify allowed upload file size
+Sometimes it is necessary to upload big dump which doesn't fit into default limit 128M. You can specify alternative size via environment variable `UPLOAD_SIZE`:
+```bash
+docker run --rm --link mysql:mysql -p 1234:80 -e UPLOAD_SIZE=1G nazarpc/phpmyadmin
+```
+
 # Difference from other similar containers with phpMyAdmin
 This container is much simpler, it doesn't use any custom base, just official PHP 5.6 container with built-in Apache2 web server.
 
