@@ -26,10 +26,7 @@ RUN PHPMYADMIN_VERSION=4.5.0.2 && \
 COPY .htaccess /var/www/html/.htaccess
 COPY config.inc.php /var/www/html/config.inc.php
 
-# Support for UPLOAD_SIZE env var, if specified - will be used instead of default value 128M
+COPY docker-entrypoint.sh /home/entrypoint.sh
 
-CMD (test -z $UPLOAD_SIZE || sed -i "s/128M/$UPLOAD_SIZE/g" .htaccess) && \
+ENTRYPOINT ["/home/entrypoint.sh"]
 
-# Start Apache as usual
-
-	apache2-foreground
