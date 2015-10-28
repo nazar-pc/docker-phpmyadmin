@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Support for stopping container with `Ctrl+C`
 
