@@ -2,7 +2,7 @@
 include 'config.sample.inc.php';
 
 // Host will default to `mysql` when using `--link db_host:mysql`, but also allows to be overridden via specifying environment variable (for Kubernetes, etc.)
-$cfg['Servers'][1]['host']            = $_ENV['MYSQL_PORT_3306_TCP_ADDR'];
+$cfg['Servers'][1]['host']            = isset($_ENV['MYSQL_PORT_3306_TCP_ADDR']) ? $_ENV['MYSQL_PORT_3306_TCP_ADDR'] : 'mysql';
 $cfg['Servers'][1]['AllowNoPassword'] = true;
 $file_with_secret                     = 'config.inc.secret.php';
 
