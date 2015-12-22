@@ -1,10 +1,32 @@
 <?php
 include 'config.sample.inc.php';
 
-// Host will default to `mysql` when using `--link db_host:mysql`, but also allows to be overridden via specifying environment variable (for Kubernetes, etc.)
-$cfg['Servers'][1]['host']            = isset($_ENV['MYSQL_PORT_3306_TCP_ADDR']) ? $_ENV['MYSQL_PORT_3306_TCP_ADDR'] : 'mysql';
-$cfg['Servers'][1]['AllowNoPassword'] = true;
-$file_with_secret                     = 'config.inc.secret.php';
+// TODO: MYSQL_PORT_3306_TCP_ADDR environmental variable is deprecated now and will be removed in future!
+if (isset($_ENV['MYSQL_PORT_3306_TCP_ADDR'])) {
+	$_ENV['MYSQL_HOST'] = $_ENV['MYSQL_PORT_3306_TCP_ADDR'];
+}
+
+$hosts = isset($_ENV['MYSQL_HOST']) ? $_ENV['MYSQL_HOST'] : 'mysql';
+foreach (explode(',', $hosts) as $index => $host) {
+	$config = &$cfg['Servers'][$index + 1];
+	$host   = trim($host);
+	if (strpos($host, ':') !== false) {
+		list($host, $port) = explode(':', $host);
+		$config['port'] = $port;
+	}
+	$config['host']            = $host;
+	$config['AllowNoPassword'] = true;
+}
+
+if (isset($_ENV['ALLOW_ARBITRARY'])) {
+	$cfg['AllowArbitraryServer'] = (bool)$_ENV['ALLOW_ARBITRARY'];
+}
+
+if (isset($_ENV['ABSOLUTE_URI'])) {
+	$cfg['PmaAbsoluteUri'] = $_ENV['ABSOLUTE_URI'];
+}
+
+$file_with_secret = 'config.inc.secret.php';
 
 if (!file_exists($file_with_secret)) {
 	$secret = hash('sha512', openssl_random_pseudo_bytes(1000));

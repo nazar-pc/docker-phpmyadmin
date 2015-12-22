@@ -4,6 +4,8 @@
 # phpMyAdmin as Docker container
 This container may be used with MySQL or MariaDB linked containers.
 
+If you like this image - you may also like set of images for [WebServer](https://github.com/nazar-pc/docker-webserver).
+
 #How to use
 With MySQL:
 ```bash
@@ -26,12 +28,35 @@ Sometimes it is necessary to upload big dump which doesn't fit into default limi
 docker run --rm --link mysql:mysql -p 1234:80 -e UPLOAD_SIZE=1G nazarpc/phpmyadmin
 ```
 
-# Difference from other similar containers with phpMyAdmin
-This container is much simpler, it doesn't use any custom base, just official PHP 5.6 container with built-in Apache2 web server.
+# Customize host name
+By default phpMyAdmin assumes MySQL is available through `mysql` hostname. Sometimes this is not the case, so you can override this with environmental variable `MYSQL_HOST`:
+```bash
+docker run --rm --link mysql:mysql -p 1234:80 -e MYSQL_HOST=mariadb:9999 nazarpc/phpmyadmin
+```
+Examples of valid `MYSQL_HOST`:
+* `mariadb` - hostname `mariadb`
+* `mariadb:9999` - hostname `mariadb` with port `9999`
+* `mysql, mariadb:9999` - multiple servers
 
-Also this container generates `blowfish_secret` configuration option (unique for each container instance, you don't have to rebuild it yourself), so that you will automatically use cookie sessions (for your convenience).
+# Allow connecting to arbitrary MySQL host
+```bash
+docker run --rm --link mysql:mysql -p 1234:80 -e ALLOW_ARBITRARY=1 nazarpc/phpmyadmin
+```
 
-Plus, I'll try to keep it up to date with new releases of phpMyAdmin and PHP (feel free to ping me if I miss some release), so, by using `nazarpc/phpmyadmin` image you'll always have latest versions of both of them.
+# Custom URI of phpMyAdmin instance
+Sometimes phpMyAdmin may determine its own URI incorrectly. Usually you can fix it by correcting virtual host of revers proxy,  but sometimes it might be useful to specify URI explicitly:
+```bash
+docker run --rm --link mysql:mysql -p 1234:80 -e ABSOLUTE_URI=https://domain.tld/phpmyadmin nazarpc/phpmyadmin
+```
+
+# Difference from other similar images with phpMyAdmin
+This image doesn't use any custom base, just official PHP 5.6 container with built-in Apache2 web server.
+There is support for importing SQL dumps in all compression formats supported by phpMyAdmin.
+There is possibility to connect to multiple servers of your choice or even to arbitrary servers if necessary.
+
+Also this image generates `blowfish_secret` configuration option (unique for each container instance, you don't have to rebuild it yourself) on each container start, so that you will automatically use cookie sessions (for your convenience).
+
+Plus, I'll try to keep it up to date with new releases of phpMyAdmin (as well as PHP itself and other software inside image), so, by using `nazarpc/phpmyadmin` image you'll always have latest versions.
 
 #Questions?
 Open an issue and ask your question there:)
