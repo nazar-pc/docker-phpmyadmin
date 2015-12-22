@@ -1,8 +1,7 @@
 <?php
 include 'config.sample.inc.php';
 
-// TODO: MYSQL_PORT_3306_TCP_ADDR environmental variable is deprecated now and will be removed in future!
-if (isset($_ENV['MYSQL_PORT_3306_TCP_ADDR'])) {
+if (!isset($_ENV['MYSQL_HOST']) && isset($_ENV['MYSQL_PORT_3306_TCP_ADDR'])) {
 	$_ENV['MYSQL_HOST'] = $_ENV['MYSQL_PORT_3306_TCP_ADDR'];
 }
 
