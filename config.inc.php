@@ -25,6 +25,11 @@ if (isset($_ENV['ABSOLUTE_URI'])) {
 	$cfg['PmaAbsoluteUri'] = $_ENV['ABSOLUTE_URI'];
 }
 
+if (isset($_ENV['SESSION_TIMEOUT'])) {
+	$cfg['LoginCookieValidity'] = $_ENV['SESSION_TIMEOUT'];
+	ini_set('session.gc_maxlifetime', $_ENV['SESSION_TIMEOUT']);
+}
+
 $file_with_secret = 'config.inc.secret.php';
 
 if (!file_exists($file_with_secret)) {

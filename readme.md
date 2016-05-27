@@ -28,6 +28,12 @@ Sometimes it is necessary to upload big dump which doesn't fit into default limi
 docker run --rm --link mysql:mysql -p 1234:80 -e UPLOAD_SIZE=1G nazarpc/phpmyadmin
 ```
 
+# Increase session timeout
+The default session timeout is just 1440 seconds (24 minutes). You can specify an alternative timeout by setting the environment variable `SESSION_TIMEOUT`:
+```bash
+docker run --rm --link mysql:mysql -p 1234:80 -e SESSION_TIMEOUT=86400 nazarpc/phpmyadmin
+```
+
 # Customize host name
 By default phpMyAdmin assumes MySQL is available through `mysql` hostname. Sometimes this is not the case, so you can override this with environmental variable `MYSQL_HOST`:
 ```bash
