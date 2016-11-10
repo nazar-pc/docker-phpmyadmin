@@ -8,12 +8,29 @@ if (!isset($_ENV['MYSQL_HOST']) && isset($_ENV['MYSQL_PORT_3306_TCP_ADDR'])) {
 $hosts = isset($_ENV['MYSQL_HOST']) ? $_ENV['MYSQL_HOST'] : 'mysql';
 foreach (explode(',', $hosts) as $index => $host) {
 	$config = &$cfg['Servers'][$index + 1];
-	$host   = trim($host);
+
+	// split into host[:port], user and pass
+	$parts = explode(";", $host);
+
+	$host = trim(array_shift($parts));
 	if (strpos($host, ':') !== false) {
 		list($host, $port) = explode(':', $host);
 		$config['port'] = $port;
 	}
-	$config['host']            = $host;
+	$config['host'] = $host;
+
+	if(!empty($parts)) {
+		$user   = trim(array_shift($parts));
+		$config['user'] = $user;
+	}
+
+	if(!empty($parts)) {
+		$user   = trim(join(";",$parts));
+		$config['auth_type'] = 'config';
+		$config['password'] = $user;
+	}
+
+
 	$config['AllowNoPassword'] = true;
 }
 
@@ -41,3 +58,10 @@ if (!file_exists($file_with_secret)) {
 }
 
 include $file_with_secret;
+
+if (isset($_ENV['PMA_CONFIG'])) {
+	$custom = json_decode($_ENV['PMA_CONFIG'], true);
+
+	$cfg = array_merge($cfg, $custom);
+}
+
