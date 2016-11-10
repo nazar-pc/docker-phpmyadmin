@@ -20,14 +20,12 @@ foreach (explode(',', $hosts) as $index => $host) {
 	$config['host'] = $host;
 
 	if(!empty($parts)) {
-		$user   = trim(array_shift($parts));
-		$config['user'] = $user;
+		$config['user'] = trim(array_shift($parts));
 	}
 
 	if(!empty($parts)) {
-		$user   = trim(join(";",$parts));
 		$config['auth_type'] = 'config';
-		$config['password'] = $user;
+		$config['password'] = trim(join(";", $parts)); // Passwords can contain ; so merge any remaining parts
 	}
 
 
