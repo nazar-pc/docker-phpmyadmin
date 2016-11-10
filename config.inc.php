@@ -13,22 +13,23 @@ foreach (explode(',', $hosts) as $index => $host) {
 	list($host, $user, $password) = explode(';', $host, 3) + [1 => '', 2 => ''];
 
 	if (strpos($host, ':') !== false) {
-		list($host, $port) = explode(':', trim($host));
+		list($host, $port) = explode(':', $host);
 		$config['port'] = $port;
 	}
 	$config['host'] = $host;
 
 	if($user) {
-		$config['user'] = trim($user);
+		$config['user'] = $user;
 	}
 
 	if($password) {
 		$config['auth_type'] = 'config';
-		$config['password'] = trim($password);
+		$config['password'] = $password;
 	}
 
-
 	$config['AllowNoPassword'] = true;
+
+	$config = array_map('trim', $config);
 }
 
 if (isset($_ENV['ALLOW_ARBITRARY'])) {
