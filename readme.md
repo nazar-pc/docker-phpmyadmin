@@ -59,9 +59,9 @@ docker run --rm --link mysql:mysql -p 1234:80 -e ABSOLUTE_URI=https://domain.tld
 ```
 
 # Custom phpMyAdmin settings
-You can specify any PMA-config-setting using a JSON object passed to `PMA_CONFIG`, that will be merged to the existing config.
+You can specify any PMA-config-setting using a JSON object passed to `JSON_CONFIG`, that will be merged to the existing config.
 ```bash
-docker run --rm --link mysql:mysql -p 1234:80 -e PMA_CONFIG='{"AllowUserDropDatabase": true,"MaxTableList": 450, "NavigationTreeTableSeparator": "_"}' nazarpc/phpmyadmin
+docker run --rm --link mysql:mysql -p 1234:80 -e JSON_CONFIG='{"AllowUserDropDatabase": true,"MaxTableList": 450, "NavigationTreeTableSeparator": "_"}' nazarpc/phpmyadmin
 ```
 
 # Difference from other similar images with phpMyAdmin

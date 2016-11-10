@@ -10,22 +10,21 @@ foreach (explode(',', $hosts) as $index => $host) {
 	$config = &$cfg['Servers'][$index + 1];
 
 	// split into host[:port], user and pass
-	$parts = explode(";", $host);
+	list($host, $user, $password) = explode(';', $host, 3) + [1 => '', 2 => ''];
 
-	$host = trim(array_shift($parts));
 	if (strpos($host, ':') !== false) {
-		list($host, $port) = explode(':', $host);
+		list($host, $port) = explode(':', trim($host));
 		$config['port'] = $port;
 	}
 	$config['host'] = $host;
 
-	if(!empty($parts)) {
-		$config['user'] = trim(array_shift($parts));
+	if($user) {
+		$config['user'] = trim($user);
 	}
 
-	if(!empty($parts)) {
+	if($password) {
 		$config['auth_type'] = 'config';
-		$config['password'] = trim(join(";", $parts)); // Passwords can contain ; so merge any remaining parts
+		$config['password'] = trim($password);
 	}
 
 
@@ -57,8 +56,8 @@ if (!file_exists($file_with_secret)) {
 
 include $file_with_secret;
 
-if (isset($_ENV['PMA_CONFIG'])) {
-	$custom = json_decode($_ENV['PMA_CONFIG'], true);
+if (isset($_ENV['JSON_CONFIG'])) {
+	$custom = json_decode($_ENV['JSON_CONFIG'], true);
 
 	$cfg = array_merge($cfg, $custom);
 }
