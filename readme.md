@@ -42,7 +42,10 @@ docker run --rm --link mysql:mysql -p 1234:80 -e MYSQL_HOST=mariadb:9999 nazarpc
 Examples of valid `MYSQL_HOST`:
 * `mariadb` - hostname `mariadb`
 * `mariadb:9999` - hostname `mariadb` with port `9999`
-* `mysql, mariadb:9999` - multiple servers
+* `mariadb;root` - hostname `mariadb` with user `root`
+* `mariadb;root;123` - hostname `mariadb` with user `root` & password `123`
+* `mariadb:9999;root;123` - hostname `mariadb` with user `root`, password `123` & port `9999`
+* `mysql, mariadb:9999, mariadb:9999;root;123` - multiple servers
 
 # Allow connecting to arbitrary MySQL host
 ```bash
@@ -53,6 +56,12 @@ docker run --rm --link mysql:mysql -p 1234:80 -e ALLOW_ARBITRARY=1 nazarpc/phpmy
 Sometimes phpMyAdmin may determine its own URI incorrectly. Usually you can fix it by correcting virtual host of revers proxy,  but sometimes it might be useful to specify URI explicitly:
 ```bash
 docker run --rm --link mysql:mysql -p 1234:80 -e ABSOLUTE_URI=https://domain.tld/phpmyadmin nazarpc/phpmyadmin
+```
+
+# Custom phpMyAdmin settings
+You can specify any PMA-config-setting using a JSON object passed to `JSON_CONFIG`, that will be merged to the existing config.
+```bash
+docker run --rm --link mysql:mysql -p 1234:80 -e JSON_CONFIG='{"AllowUserDropDatabase": true,"MaxTableList": 450, "NavigationTreeTableSeparator": "_"}' nazarpc/phpmyadmin
 ```
 
 # Difference from other similar images with phpMyAdmin
