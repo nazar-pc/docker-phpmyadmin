@@ -3,7 +3,7 @@ MAINTAINER Nazar Mokrynskyi <nazar@mokrynskyi.com>
 
 # Set desired phpMyAdmin version
 
-RUN PHPMYADMIN_VERSION=4.6.5.2 && \
+RUN PHPMYADMIN_VERSION=4.6.6 && \
 
 # Install libbz2-dev and zlib1g-dev packages to support *.sql.bz2 and *.sql.zip compressed files during imports
 
