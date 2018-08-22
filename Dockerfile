@@ -1,9 +1,9 @@
-FROM php:7.1-apache
-MAINTAINER Nazar Mokrynskyi <nazar@mokrynskyi.com>
+FROM php:7.2-apache
+LABEL maintainer "Nazar Mokrynskyi <nazar@mokrynskyi.com>"
 
 # Set desired phpMyAdmin version
 
-RUN PHPMYADMIN_VERSION=4.8.2 && \
+RUN PHPMYADMIN_VERSION=4.8.3 && \
 
 # Install libbz2-dev and zlib1g-dev packages to support *.sql.bz2 and *.sql.zip compressed files during imports
 
