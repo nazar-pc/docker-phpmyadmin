@@ -1,5 +1,5 @@
-[![Docker pulls](https://img.shields.io/docker/pulls/nazarpc/phpmyadmin.svg?label=Docker pulls)](https://registry.hub.docker.com/u/nazarpc/phpmyadmin/)
-[![Docker stars](https://img.shields.io/docker/stars/nazarpc/phpmyadmin.svg?label=Docker stars)](https://registry.hub.docker.com/u/nazarpc/phpmyadmin/)
+[![Docker pulls](https://img.shields.io/docker/pulls/nazarpc/phpmyadmin.svg?label=Docker+pulls)](https://registry.hub.docker.com/u/nazarpc/phpmyadmin/)
+[![Docker stars](https://img.shields.io/docker/stars/nazarpc/phpmyadmin.svg?label=Docker+stars)](https://registry.hub.docker.com/u/nazarpc/phpmyadmin/)
 
 # phpMyAdmin as Docker container
 This container may be used with MySQL or MariaDB linked containers.
