@@ -67,7 +67,7 @@ docker run --rm --link mysql:mysql -p 1234:80 -e JSON_CONFIG='{"AllowUserDropDat
 ## Custom ports for HTTP and HTTPS inside the container
 If you need Apache to listen on ports other than the default 80 and 443 (e.g. when running the container with a non-privileged user) specify alternative values via the environment variables `HTTP_PORT` and `HTTPS_PORT`:
 ```bash
-docker run --rm --link mysql:mysql --user 1001 -p 8080 -p 4443 -e HTTP_PORT=8080 -e HTTPS_PORT=4443 nazarpc/phpmyadmin
+docker run --rm --user 1001 -p 8080:8080 -p 4443:4443 -e HTTP_PORT=8080 -e HTTPS_PORT=4443 nazarpc/phpmyadmin
 ```
 
 # Difference from other similar images with phpMyAdmin
