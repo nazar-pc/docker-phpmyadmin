@@ -3,7 +3,7 @@ LABEL maintainer "Nazar Mokrynskyi <nazar@mokrynskyi.com>"
 
 # Set desired phpMyAdmin version
 
-RUN PHPMYADMIN_VERSION=4.9.0.1 && \
+RUN PHPMYADMIN_VERSION=4.9.2 && \
 
 # Install libbz2-dev and zlib1g-dev packages to support *.sql.bz2 and *.sql.zip compressed files during imports
 
