@@ -1,20 +1,20 @@
-FROM php:7.2-apache
+FROM php:7.4-apache
 LABEL maintainer "Nazar Mokrynskyi <nazar@mokrynskyi.com>"
 
 # Set desired phpMyAdmin version
 
-RUN PHPMYADMIN_VERSION=4.9.2 && \
+RUN PHPMYADMIN_VERSION=5.0.2 && \
 
 # Install libbz2-dev and zlib1g-dev packages to support *.sql.bz2 and *.sql.zip compressed files during imports
 
 	apt-get update && \
-	apt-get install -y --no-install-recommends libbz2-dev zlib1g-dev && \
+	apt-get install -y --no-install-recommends libbz2-dev zlib1g-dev libzip-dev && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* && \
 
 # Install PHP Extensions
 
-	docker-php-ext-install bz2 mbstring mysqli zip && \
+	docker-php-ext-install bz2 mysqli zip && \
 
 # Download and extract phpMyAdmin
 
